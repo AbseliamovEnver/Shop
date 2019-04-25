@@ -1,0 +1,38 @@
+##########################
+## Java
+##########################
+*.class
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+##########################
+## Maven
+##########################
+target
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+##########################
+## IntelliJ
+##########################
+*.iml
+.idea
+*.ipr
+*.iws
+out
+.idea_modules
+
+# Log file
+*.log
