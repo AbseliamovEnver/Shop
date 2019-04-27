@@ -8,13 +8,13 @@ import javax.persistence.*;
  */
 
 @Entity
-public class ThingInOrder {
+public class ProductInOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
-    private Thing thing;
+    private Product product;
 
     @ManyToOne
     private Order order;
@@ -30,12 +30,12 @@ public class ThingInOrder {
         this.id = id;
     }
 
-    public Thing getThing() {
-        return thing;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setThing(Thing thing) {
-        this.thing = thing;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Order getOrder() {

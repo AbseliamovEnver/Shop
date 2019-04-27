@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>
-                    <h:commandButton value="Создать товар" action="#{orderBean.createThing()}"/>
+                    <h:commandButton value="Создать товар" action="#{orderBean.createProduct()}"/>
                 </td>
                 <td>
                     <h:commandButton value="Создать заказ" action="#{orderBean.createOrder()}"/>
@@ -29,31 +29,31 @@
             </tr>
         </table>
         <h1>Созданные товары</h1>
-        <h:dataTable value="#{orderBean.things}" var="thing">
+        <h:dataTable value="#{orderBean.products}" var="product">
             <h:column>
-                <h:outputText value="#{thing.name}"/>
+                <h:outputText value="#{product.name}"/>
             </h:column>
             <h:column>
-                <h:outputText value="#{thing.price}"/>
+                <h:outputText value="#{product.price}"/>
             </h:column>
             <h:column>
-                <h:outputText value="#{thing.quantity}"/>
+                <h:outputText value="#{product.quantity}"/>
             </h:column>
             <h:column>
-                <h:commandButton value="Добавить" action="#{orderBean.addThing(thing)}"/>
+                <h:commandButton value="Добавить" action="#{orderBean.addProduct(product)}"/>
             </h:column>
         </h:dataTable>
     </h:form>
     <h1>Добавленные товары</h1>
-    <h:dataTable value="#{orderBean.thingsInOrder}" var="thing">
+    <h:dataTable value="#{orderBean.productInOrder}" var="product">
         <h:column>
-            <h:outputText value="#{thing.name}"/>
+            <h:outputText value="#{product.name}"/>
         </h:column>
         <h:column>
-            <h:outputText value="#{thing.price}"/>
+            <h:outputText value="#{product.price}"/>
         </h:column>
         <h:column>
-            <h:outputText value="#{thing.quantity}"/>
+            <h:outputText value="#{product.quantity}"/>
         </h:column>
     </h:dataTable>
 </h:body>

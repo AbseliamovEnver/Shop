@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Thing {
+public class Product {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private double price;
     private int quantity;
 
-    @OneToMany(mappedBy = "thing")
-    private List<ThingInOrder> thingInOrders;
+    @OneToMany(mappedBy = "product")
+    private List<ProductInOrder> productInOrders;
 
     public long getId() {
         return id;
@@ -46,11 +46,11 @@ public class Thing {
         this.quantity = quantity;
     }
 
-    public List<ThingInOrder> getThingInOrders() {
-        return thingInOrders;
+    public List<ProductInOrder> getProductInOrders() {
+        return productInOrders;
     }
 
-    public void setThingInOrders(List<ThingInOrder> thingInOrders) {
-        this.thingInOrders = thingInOrders;
+    public void setProductInOrders(List<ProductInOrder> productInOrders) {
+        this.productInOrders = productInOrders;
     }
 }

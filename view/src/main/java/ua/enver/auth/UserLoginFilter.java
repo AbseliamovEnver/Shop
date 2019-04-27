@@ -1,5 +1,7 @@
 package ua.enver.auth;
 
+import ua.enver.auth.domain.ShopUser;
+
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -12,8 +14,11 @@ import java.io.IOException;
  * @project shop
  */
 
-@WebFilter(urlPatterns = "/user/*")
+@WebFilter(urlPatterns = {UserLoginFilter.USER_FILTER_URI + "*",
+        UserLoginFilter.ADMIN_FILTER_URI + "*"})
 public class UserLoginFilter implements Filter {
+    public static final String USER_FILTER_URI = "/user/";
+    public static final String ADMIN_FILTER_URI = "/admin/";
 
     @Inject
     private AuthBean authBean;
@@ -31,7 +36,14 @@ public class UserLoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        if (authBean.isLoggedIn()){
+        ShopUser.Role role = authBean.getRole();
+        if (role != null){
+            String uri = request.getRequestURI();
+            String beginOfAdminUri = request.getContextPath() + ADMIN_FILTER_URI;
+            if (uri.startsWith(beginOfAdminUri) && role != ShopUser.Role.ADMIN){
+                response.sendRedirect(request.getContextPath() + "/errors.xhtml");
+                return;
+            }
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

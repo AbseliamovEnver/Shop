@@ -1,9 +1,9 @@
 package ua.enver;
 
 import ua.enver.domain.Order;
-import ua.enver.domain.Thing;
+import ua.enver.domain.Product;
 import ua.enver.ejb.OrdersManagerBean;
-import ua.enver.ejb.ThingsManagerBean;
+import ua.enver.ejb.ProductsManagerBean;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -29,7 +29,7 @@ public class OrderBean implements Serializable {
     private OrdersManagerBean ordersManagerBean;
 
     @EJB
-    private ThingsManagerBean thingsManagerBean;
+    private ProductsManagerBean productsManagerBean;
 
     public void createOrder(){
         if (order == null){
@@ -37,27 +37,27 @@ public class OrderBean implements Serializable {
         }
     }
 
-    public void createThing(){
-        thingsManagerBean.createThing(name, price, quantity);
+    public void createProduct(){
+        productsManagerBean.createProduct(name, price, quantity);
     }
 
-    public List<Thing> getThings(){
-        return thingsManagerBean.getThings();
+    public List<Product> getProducts(){
+        return productsManagerBean.getProducts();
     }
 
-    public void addThing(Thing thing){
+    public void addProduct(Product product){
         if (order == null){
             return;
         }
-        ordersManagerBean.addToOrder(thing.getId(), order.getId(), thing.getPrice(), 1);
+        ordersManagerBean.addToOrder(product.getId(), order.getId(), product.getPrice(), 1);
     }
 
-    public List<Thing> getThingsInOrder(){
+    public List<Product> getProductsInOrder(){
         if (order == null){
             return Collections.emptyList();
         }
 
-        return ordersManagerBean.getThingInOrder(order.getId());
+        return ordersManagerBean.getProductsInOrder(order.getId());
     }
 
     public String getName() {

@@ -1,8 +1,8 @@
 package ua.enver.ejb;
 
 import ua.enver.domain.Order;
-import ua.enver.domain.Thing;
-import ua.enver.domain.ThingInOrder;
+import ua.enver.domain.Product;
+import ua.enver.domain.ProductInOrder;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -30,9 +30,9 @@ public class OrdersManagerBean {
         return order;
     }
 
-    public boolean addToOrder(long thingId, long orderId, double price, int quantity) {
-        Thing thing = entityManager.find(Thing.class, thingId);
-        if (thing == null) {
+    public boolean addToOrder(long productId, long orderId, double price, int quantity) {
+        Product product = entityManager.find(Product.class, productId);
+        if (product == null) {
             return false;
         }
 
@@ -41,26 +41,26 @@ public class OrdersManagerBean {
             return false;
         }
 
-        ThingInOrder thingInOrder = new ThingInOrder();
-        thingInOrder.setOrder(order);
-        thingInOrder.setThing(thing);
-        thingInOrder.setPrice(price);
-        thingInOrder.setQuantity(quantity);
-        entityManager.persist(thingInOrder);
+        ProductInOrder productInOrder = new ProductInOrder();
+        productInOrder.setOrder(order);
+        productInOrder.setProduct(product);
+        productInOrder.setPrice(price);
+        productInOrder.setQuantity(quantity);
+        entityManager.persist(productInOrder);
 
         return true;
     }
 
-    public List<Thing> getThingInOrder(long orderId) {
+    public List<Product> getProductsInOrder(long orderId) {
         Order order = entityManager.find(Order.class, orderId);
         if (order == null) {
             return Collections.emptyList();
         }
 
-        List<ThingInOrder> thingInOrders = order.getThingInOrders();
-        List<Thing> result = new ArrayList<>();
-        for (ThingInOrder thingInOrder : thingInOrders) {
-            result.add(thingInOrder.getThing());
+        List<ProductInOrder> productInOrders = order.getProductInOrders();
+        List<Product> result = new ArrayList<>();
+        for (ProductInOrder productInOrder : productInOrders) {
+            result.add(productInOrder.getProduct());
         }
 
         return result;

@@ -10,7 +10,7 @@ public class Order {
     private long id;
 
     @OneToMany(mappedBy = "order")
-    private List<ThingInOrder> thingInOrders;
+    private List<ProductInOrder> productInOrders;
 
     public long getId() {
         return id;
@@ -20,11 +20,11 @@ public class Order {
         this.id = id;
     }
 
-    public List<ThingInOrder> getThingInOrders() {
-        return thingInOrders;
+    public List<ProductInOrder> getProductInOrders() {
+        return productInOrders;
     }
 
-    public void setThingInOrders(List<ThingInOrder> thingInOrders) {
-        this.thingInOrders = thingInOrders;
+    public void setProductInOrders(List<ProductInOrder> productInOrders) {
+        this.productInOrders = productInOrders;
     }
 }

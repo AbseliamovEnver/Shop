@@ -1,6 +1,7 @@
 package ua.enver.auth;
 
 import org.apache.commons.lang3.StringUtils;
+import ua.enver.auth.domain.ShopUser;
 import ua.enver.auth.ejb.AuthenticationManager;
 
 import javax.ejb.EJB;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class AuthBean implements Serializable {
-    private boolean loggedIn;
+    private ShopUser.Role role;
 
     private String login;
     private String password;
@@ -28,19 +29,15 @@ public class AuthBean implements Serializable {
     @EJB
     private AuthenticationManager authenticationManager;
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
     public void doLogin(){
         if (StringUtils.isEmpty(login) || StringUtils.isEmpty(password)){
-            loggedIn = false;
+            role = null;
             return;
         }
 
-        loggedIn = authenticationManager.loginAsUser(login, password);
+        role = authenticationManager.login(login, password);
 
-        if (loggedIn){
+        if (role != null){
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect(requestedPage);
             } catch (IOException e) {
@@ -49,8 +46,12 @@ public class AuthBean implements Serializable {
         }
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
+    public ShopUser.Role getRole() {
+        return role;
+    }
+
+    public void setRole(ShopUser.Role role) {
+        this.role = role;
     }
 
     public String getLogin() {

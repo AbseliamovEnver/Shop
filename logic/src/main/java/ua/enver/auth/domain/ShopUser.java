@@ -11,9 +11,15 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class ShopUser {
+    public enum Role{
+        USER,
+        ADMIN
+    }
+
     @Id
     private long id;
     private String name;
+    private Role role;
 
     @OneToOne
     private Credentials credentials;
@@ -40,5 +46,13 @@ public class ShopUser {
 
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
